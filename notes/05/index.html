@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>JavaScript</title>
+		<link rel="stylesheet" href="css.css">
+  </head>
+  <body>
+    <div class="intro"><h1>Спред между биржами</h1></div>
+    <div id="intro" class="tablResult">
+      <div id="head" class="string">
+        <div class="timeUpdate">Время</div>
+        <div class="nameCurency">Пара</div>
+        <div class="spread">продажа/покупка:</div>
+        <div class="spread">Binance</div>
+        <div class="spread">Yobit</div>
+      </div>
+    </div>
+
+
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+      <p class="highcharts-description">
+        Chart showing data loaded dynamically. The individual data points can
+        be clicked to display more information.
+      </p>
+    </figure>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="script.js"></script>
+  </body>
+</html>
