@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'mysite:index' %}">Главная</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+      aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+      <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'acc:index' %}">Забронировать размещение</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mb-2 mb-sm-0">
+
+        {% if user.is_authenticated %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active">{{ user|default:'пользователь' }}</a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'auth:edit' %}">Профиль</a>
+        </li>
+        {% if user.is_superuser %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'admin:users' %}">админка</a>
+        </li>
+        {% endif %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'auth:logout' %}">Выйти</a>
+        </li>
+
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'auth:login' %}">войти</a>
+        </li>
+        {% endif %}
+
+      </ul>
+      <form role="search">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+  </div>
+</nav>
