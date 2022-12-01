@@ -1,17 +1,13 @@
-<!DOCTYPE html>
+{% extends 'mainapp/base.html' %}
 {% load static %}
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link type="text/css" href="{% static 'styles.css' %}" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
+{% block content %}
+<script>
+const authUser = {{ user_id }};
+const task_id = {{ pk }};
 
-<body class="bodyTasks">
-  <div class="description" id="{{ pk }}" user_id="{{ user_id }}"></div>
+</script>
+  <!-- <div class="description" id="{{ pk }}" user_id="{{ user_id }}"></div> -->
   <h1 class="lol" id="io">Привет мир</h1>
 
   <!-- <form action="{% url 'index:add' %}" method="post">
@@ -21,7 +17,7 @@
 
  </form> -->
 
-  <form action="/add/" method="post">
+  <form id="task" action="/add/" method="post">
     <div class="mb-3">
       <label class="form-label fs-3">Заголовок:</label>
       <input type="text" class="form-control fs-4" name="name" placeholder="Название задачи" />
@@ -71,15 +67,12 @@
     <button id="sendMessage" type="sendMessage" class="btn btn-primary btn-lg"
       style="position: relative; left: 25%; width: 50%;">Отправить</button>
   </form>
+
+{% endblock %}
+
+
+
+{% block javascript %}
+<script src="{% static 'scriptEditTask.js' %}"></script>
+{% endblock %}
   
-
-
-  <!-- JavaScript Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="{% static 'scriptEditTask.js' %}"></script>
-</body>
-
-</html>

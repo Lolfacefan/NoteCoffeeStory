@@ -14,12 +14,12 @@ function getCookie(name) {
     return cookieValue;
 }
 token = getCookie('csrftoken');
-// console.log(getCookie('csrftoken'));
+console.log(token);
 
 
-let addForm = document.querySelector('form'),
-    task_id = document.querySelector('.description').attributes.id.value,
-    user_id_comment = document.querySelector('.description').attributes.user_id.value,
+
+let addForm = document.querySelector('#task'),
+    // task_id = document.querySelector('.description').attributes.id.value,
     name1 = document.querySelector('[name="name"]'),
     description = document.querySelector('[name="description"]'),
     status1 = document.querySelector('[name="status"]'),
@@ -42,7 +42,7 @@ comments = document.querySelector('#comments'),
                 newElement.setAttribute("role", `alert`);
                 newElement.setAttribute("comment_id", `${element.pk}`);
                 let button_delete = '';
-                if (element.author.pk == user_id_comment) {
+                if (element.author.pk == authUser) {
                     button_delete = `<span class="icon-delete_FILL0_wght400_GRAD0_opsz48 delete" comment_id="${element.pk}" title="удалить"></span>`
 
                 }
@@ -89,7 +89,7 @@ comments.addEventListener('click', (event) => {
     }
 })
 
-
+console.log(addForm)
 // Отправка на сервер измененной задачи
 addForm.addEventListener('submit', (event) => {
     event.preventDefault();

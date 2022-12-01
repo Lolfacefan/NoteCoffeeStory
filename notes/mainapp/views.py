@@ -1,3 +1,7 @@
+import random
+
+from django.contrib.auth import authenticate, login
+from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
@@ -17,7 +21,6 @@ from django.contrib.auth.models import User
 #     def get_object(self, queryset=None, **kwargs):
 #         item = self.kwargs.get('pk')
 #         return get_object_or_404(FileSave, pk=item)
-
 
 
 class EditTask(APIView):
@@ -59,10 +62,37 @@ def task_update(request, pk):
     return render(request, 'mainapp/edit.html', {"pk": pk, "user_id": user_id})
 
 
+def loginUp(request):
+    user_id = request.user.id
+    if user_id is None:
+        return render(request, 'mainapp/index.html')
+    else:
+        return HttpResponseRedirect(reverse('index:index2'))
+
 
 def index(request):
     print(type(request.user))
     user_id = request.user.id
+    # user = authenticate(username='admin', password='admin')
+    # print(user)
+    # print(type(user))
+    # login(request, user)
+
+
+    # if user is not None:
+    # # A backend authenticated the credentials
+    # else:
+    # # No backend authenticated the credentials
+
+    hash = "%032x" % random.getrandbits(128)
+    # hash = "%032x" % hash
+    send_mail(
+        'Авторизация вашего email',
+        f'Ваш хеш {hash}',
+        'info@fanfile.ru',
+        ['fedorovich20@yandex.ru'],
+        fail_silently=False,
+    )
 
     # result = get_object_or_404(FileSave, comment_id=9)
     # print(f"result: {result}")
@@ -131,6 +161,7 @@ class deleteComment(APIView):
         if user_id == comment.author.pk:
             comment.delete()
             return Response('Success')
+
 
 class addComment(APIView):
     def get(self, request, pk):

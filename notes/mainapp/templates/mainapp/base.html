@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link type="text/css" href="{% static 'styles.css' %}" rel="stylesheet" />
+  <link href="{% static 'core/bootstrap.min.css' %}" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body class="bodyTasks">
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index:index2' %}">Главная</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+        aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Забронировать размещение</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-sm-0">
+
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active">{{ user|default:'пользователь' }}</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'index:index2' %}">Профиль</a>
+          </li>
+          
+
+        </ul>
+        <form role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+
+  {% block content %}
+
+  {% endblock %}
+
+
+  <script src="{% static 'core/bootstrap.bundle.min.js' %}"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'core/axios.min.js' %}"></script>
+
+  {% block javascript %}
+
+  {% endblock %}
+
+</body>
+
+</html>
