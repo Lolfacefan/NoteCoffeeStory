@@ -3,76 +3,81 @@
 
 {% block content %}
 <script>
-const authUser = {{ user_id }};
-const task_id = {{ pk }};
+  const authUser = {{ user_id }};
+  const task_id = {{ pk }};
 
 </script>
-  <!-- <div class="description" id="{{ pk }}" user_id="{{ user_id }}"></div> -->
-  <h1 class="lol" id="io">Привет мир</h1>
+<!-- <div class="description" id="{{ pk }}" user_id="{{ user_id }}"></div> -->
+<h1 class="lol" id="io">Привет мир</h1>
 
-  <!-- <form action="{% url 'index:add' %}" method="post">
+<!-- <form action="{% url 'index:add' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Создать</button>
 
  </form> -->
 
-  <form id="task" action="/add/" method="post">
-    <div class="mb-3">
-      <label class="form-label fs-3">Заголовок:</label>
-      <input type="text" class="form-control fs-4" name="name" placeholder="Название задачи" />
-      <div class="invalid-feedback">
-        Пожалуйста, введите имя пользователя.
-      </div>
+<form id="task" action="/add/" method="post">
+  <div class="mb-3">
+    <label class="form-label fs-3">Заголовок:</label>
+    <input type="text" class="form-control fs-4" name="name" placeholder="Название задачи" />
+    <div class="invalid-feedback">
+      Пожалуйста, введите имя пользователя.
     </div>
-    <div class="mb-3">
-      <label class="form-label fs-3">Описание задачи:</label>
-      <textarea class="form-control fs-4" id="exampleFormControlTextarea1" rows="3" name="description"
-        placeholder="Описание задачи"></textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label fs-3">Описание задачи:</label>
+    <textarea class="form-control fs-4" id="exampleFormControlTextarea1" rows="3" name="description"
+      placeholder="Описание задачи"></textarea>
+  </div>
+  <label class="form-label fs-3">Статус задачи:</label>
+  <select class="form-select fs-4" name="status" aria-label="Выбери статус задачи">
+    <option selected>Выбери статус задачи</option>
+    <option value="working">В работе</option>
+    <option value="waiting">В Ожидании</option>
+    <option value="done">Завершина</option>
+  </select>
+  <label class="form-label fs-3">Исполнитель:</label>
+  <select class="form-select fs-4" name="user_id" aria-label="Выбери исполнителя">
+    <option selected>Выбери исполнителя</option>
+  </select>
+  <p>
+    <label for="localdate" class="form-label fs-3">Дедлайн: </label>
+    <input type="datetime-local" id="localdate" class="form-control fs-4" name="time_finish" />
+  </p>
+
+  <button type="submit" class="btn btn-primary btn-lg"
+    style="position: relative; left: 25%; width: 50%;">Изменить</button>
+</form>
+
+<h1 style="margin-top: 30px" style="margin-bottom: 30px">Комментарии</h1>
+<div id="comments"></div>
+
+
+<h1 style="margin-top: 30px">Написать комментарий</h1>
+<form enctype="multipart/form-data" method="post">
+  <div class="mb-3">
+    <label class="form-label fs-3">Текст комментария:</label>
+    <textarea class="form-control fs-4" id="exampleFormControlTextarea1" rows="3" name="textComment"
+      placeholder="Текст комментария"></textarea>
+    <div class="invalid-feedback">
+      Пожалуйста, введите текст.
     </div>
-    <label class="form-label fs-3">Статус задачи:</label>
-    <select class="form-select fs-4" name="status" aria-label="Выбери статус задачи">
-      <option selected>Выбери статус задачи</option>
-      <option value="working">В работе</option>
-      <option value="waiting">В Ожидании</option>
-      <option value="done">Завершина</option>
-    </select>
-    <label class="form-label fs-3">Исполнитель:</label>
-    <select class="form-select fs-4" name="user_id" aria-label="Выбери исполнителя">
-      <option selected>Выбери исполнителя</option>
-    </select>
-    <p>
-      <label for="localdate" class="form-label fs-3">Дедлайн: </label>
-      <input type="datetime-local" id="localdate" class="form-control fs-4" name="time_finish" />
-    </p>
-
-    <button type="submit" class="btn btn-primary btn-lg"
-      style="position: relative; left: 25%; width: 50%;">Изменить</button>
-  </form>
-
-  <h1 style="margin-top: 30px" style="margin-bottom: 30px">Комментарии</h1>
-  <div id="comments"></div>
-  
-
-  <h1 style="margin-top: 30px">Написать комментарий</h1>
-  <form action="" method="post">
-    <div class="mb-3">
-      <label class="form-label fs-3">Текст комментария:</label>
-      <textarea class="form-control fs-4" id="exampleFormControlTextarea1" rows="3" name="textComment"
-        placeholder="Текст комментария"></textarea>
-        <div class="invalid-feedback">
-          Пожалуйста, введите текст.
-        </div>
+    <label class="form-label fs-3">Выбери файл:</label>
+    <input class="form-control fs-4" type="file" name="f" multiple>
+    <div class="invalid-feedback">
+      Выбери файл
     </div>
-    <button id="sendMessage" type="sendMessage" class="btn btn-primary btn-lg"
-      style="position: relative; left: 25%; width: 50%;">Отправить</button>
-  </form>
+  </div>
+  <button id="sendMessage" type="sendMessage" class="btn btn-primary btn-lg"
+    style="position: relative; left: 25%; width: 50%;">Отправить</button>
+</form>
+
 
 {% endblock %}
 
 
 
 {% block javascript %}
-<script src="{% static 'scriptEditTask.js' %}"></script>
+<script src="{% static 'scriptEditTask3.js' %}"></script>
 {% endblock %}
-  

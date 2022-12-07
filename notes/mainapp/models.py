@@ -12,8 +12,12 @@ class MyUser(AbstractUser):
 
 
 class Images(models.Model):
-    file = models.FileField(upload_to='comentImages/%Y/%m/%d/')
-    comment_id = models.ForeignKey("Comments", on_delete=models.CASCADE, null=True)
+    file = models.FileField(upload_to='comentImages/')
+    # comment_id = models.ForeignKey("Comments", on_delete=models.CASCADE, null=True)
+    # отдаем URl в виде строки
+    def __str__(self):
+        return f'{self.file}'
+
 
 
 class Comments(models.Model):
@@ -21,6 +25,10 @@ class Comments(models.Model):
     text = models.CharField(max_length=255)
     task_id = models.ForeignKey("Bids", on_delete=models.CASCADE, null=True)
     time_create = models.DateTimeField(auto_now_add=True, null=True)
+    images = models.ManyToManyField("Images")
+
+    def __str__(self):
+        return f'{self.images}, id: {self.pk}'
 
 class Bids(models.Model):
     author = models.ForeignKey(MyUser, on_delete=models.PROTECT, null=True, blank=True)

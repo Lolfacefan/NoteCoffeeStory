@@ -12,6 +12,7 @@ from .serializers import BidsSerializer, MyUserSerializer, CommentsSerializer
 from .models import Bids
 from .models import MyUser
 from .models import Comments
+from .models import Images
 from django.contrib.auth.models import User
 
 
@@ -71,8 +72,12 @@ def loginUp(request):
 
 
 def index(request):
-    print(type(request.user))
     user_id = request.user.id
+    img = get_object_or_404(Images, pk=3)
+    comment = get_object_or_404(Comments, pk=52)
+    comment.images.remove(img)
+    print(comment.images.all())
+
     # user = authenticate(username='admin', password='admin')
     # print(user)
     # print(type(user))
@@ -84,15 +89,15 @@ def index(request):
     # else:
     # # No backend authenticated the credentials
 
-    hash = "%032x" % random.getrandbits(128)
-    # hash = "%032x" % hash
-    send_mail(
-        'Авторизация вашего email',
-        f'Ваш хеш {hash}',
-        'info@fanfile.ru',
-        ['fedorovich20@yandex.ru'],
-        fail_silently=False,
-    )
+    # hash = "%032x" % random.getrandbits(128)
+    # # hash = "%032x" % hash
+    # send_mail(
+    #     'Авторизация вашего email',
+    #     f'Ваш хеш {hash}',
+    #     'info@fanfile.ru',
+    #     ['fedorovich20@yandex.ru'],
+    #     fail_silently=False,
+    # )
 
     # result = get_object_or_404(FileSave, comment_id=9)
     # print(f"result: {result}")
@@ -146,10 +151,17 @@ class TaskPostDone(APIView):
 
 class UploadFile(APIView):
     def post(self, request):
-        file = get_object_or_404(FileSave, pk=3)
-        data = request.data.get('file')
-        file.file = request.FILES['file']
-        file.save()
+        # file = get_object_or_404(FileSave, pk=3)
+        # data = request.data.get('file')
+        # file.file = request.FILES['file']
+        # file.save()
+        dict = request.FILES.dict()
+        for i, file in dict.items():
+            images = Images()
+            images.file = file
+            images.save()
+            print(images.pk)
+            print(file)
 
         return Response({"success": "Article created successfully"})
 
@@ -160,7 +172,7 @@ class deleteComment(APIView):
         comment = get_object_or_404(Comments, pk=pk)
         if user_id == comment.author.pk:
             comment.delete()
-            return Response('Success')
+            return Response({"status": "Success"})
 
 
 class addComment(APIView):
@@ -174,11 +186,23 @@ class addComment(APIView):
         user_id = request.user.id
         user = get_object_or_404(MyUser, pk=user_id)
         task = get_object_or_404(Bids, pk=pk)
+        print(request.POST)
         comment = Comments()
-        comment.text = request.data.get('text')
+        comment.text = request.POST['text']
         comment.author = user
         comment.task_id = task
         comment.save()
+        # Подвязываем фотки к комментам
+        dict = request.FILES.dict()
+        for i, file in dict.items():
+            images = Images()
+            images.file = file
+            images.save()
+            comment.images.add(images)
+            comment.save()
+
+
+
         return Response({"success": "Article created successfully"})
 
     # Пример api запроса

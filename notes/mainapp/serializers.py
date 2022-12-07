@@ -20,6 +20,7 @@ class CommentsSerializer(serializers.Serializer):
     text = serializers.CharField()
     time_create = serializers.DateTimeField()
     author = UserSerializer(required=False)
+    images = serializers.StringRelatedField(many=True)
 
 
 class MyUserSerializer(serializers.Serializer):
